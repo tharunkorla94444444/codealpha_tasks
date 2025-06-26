@@ -1,0 +1,44 @@
+import java.util.*;
+
+public class ChatBot {
+    private static final Map<String, String> knowledgeBase = new HashMap<>();
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        loadKnowledgeBase();
+
+        System.out.println("🤖 ChatBot: Hello! Ask me anything (type 'bye' to exit):");
+
+        while (true) {
+            System.out.print("You: ");
+            String input = scanner.nextLine().toLowerCase();
+
+            if (input.contains("bye")) {
+                System.out.println("🤖 ChatBot: Goodbye!");
+                break;
+            }
+
+            String response = getResponse(input);
+            System.out.println("🤖 ChatBot: " + response);
+        }
+    }
+
+    private static void loadKnowledgeBase() {
+        knowledgeBase.put("hi", "Hello! How can I help you?");
+        knowledgeBase.put("hello", "Hi there!");
+        knowledgeBase.put("your name", "I'm a Java ChatBot.");
+        knowledgeBase.put("how are you", "I'm doing great, thanks!");
+        knowledgeBase.put("what is java", "Java is a high-level, object-oriented programming language.");
+        knowledgeBase.put("help", "You can ask me about Java, programming, or general questions.");
+        knowledgeBase.put("who created you", "I was created by a Java developer.");
+    }
+
+    private static String getResponse(String input) {
+        for (String key : knowledgeBase.keySet()) {
+            if (input.contains(key)) {
+                return knowledgeBase.get(key);
+            }
+        }
+        return "Sorry, I don't understand that yet. Try asking something else!";
+    }
+}
